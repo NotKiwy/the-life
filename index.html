@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Life</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: black;
+            font-family: 'Courier New', monospace;
+            color: white;
+            padding: 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .title h2 {
+            font-size: 1.5rem;
+            color: #0f0;
+        }
+        
         #terminal {
             background-color: #000;
             color: white;
             font-family: 'Courier New', monospace;
-            padding: 20px;
-            height: 400px;
+            padding: 15px;
+            height: 50vh;
+            max-height: 400px;
             overflow-y: auto;
             white-space: pre-wrap;
-            border-radius: 5px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            flex-grow: 1;
+            margin-bottom: 20px;
             scrollbar-width: none;
-            -ms-overflow-style: none; 
+            -ms-overflow-style: none;
+            font-size: 14px;
+            line-height: 1.4;
         }
         
         #terminal::-webkit-scrollbar {
@@ -21,7 +53,7 @@
         }
         
         .terminal-line {
-            margin: 5px 0;
+            margin: 4px 0;
             opacity: 0;
             animation: fadeIn 0.3s ease-in forwards;
         }
@@ -40,6 +72,69 @@
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
         }
+        
+        .footer {
+            margin-top: auto;
+            text-align: center;
+        }
+        
+        .subtitle, .creator {
+            font-size: 12px;
+            opacity: 0.5;
+            margin: 5px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .title h2 {
+                font-size: 1.2rem;
+            }
+            
+            #terminal {
+                padding: 12px;
+                height: 40vh;
+                font-size: 12px;
+            }
+            
+            .subtitle, .creator {
+                font-size: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .title h2 {
+                font-size: 1rem;
+            }
+            
+            #terminal {
+                padding: 10px;
+                height: 35vh;
+                font-size: 11px;
+            }
+            
+            .terminal-line {
+                margin: 3px 0;
+            }
+        }
+        
+        @media (max-height: 600px) and (orientation: portrait) {
+            #terminal {
+                height: 30vh;
+            }
+            
+            .title {
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-height: 400px) and (orientation: landscape) {
+            #terminal {
+                height: 60vh;
+            }
+        }
     </style>
 </head>
   
@@ -50,35 +145,101 @@
 
     <div id="terminal"></div>
     
-    <div class="subtitle"> 
-        <h2>GitHub: github.com/notkiwy/the-life</h2>
+    <div class="footer">
+        <div class="subtitle"> 
+            <h2>GitHub: github.com/notkiwy/the-life</h2>
+        </div>
+        
+        <div class="creator">
+            <h2>Community: t.me/skyc0de</h2>
+        </div>
     </div>
     
-    <div class="creator">
-        <h2>Community: t.me/skyc0de</h2>
-    </div>
-    
-    <style>
-        body {
-            background-color: black;
-            font-family: 'Courier New', monospace;
+    <script>
+        async function runner() {
+            const terminal = document.getElementById('terminal');
+            let a = 1;
+            let m = 0;
+            let h = false;
+            
+            function addLine(text) {
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                line.textContent = text;
+                terminal.appendChild(line);
+                terminal.scrollTop = terminal.scrollHeight;
+                return line;
+            }
+            
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            
+            addLine('[!] You were born.');
+            await sleep(1000);
+            
+            while (h !== true) {
+                addLine('\n[!] New Year!')
+                await sleep(1000);
+                
+                addLine(`[*] Your age: ${a}`);
+                await sleep(1000);
+                
+                addLine(`[$] Your money: $${m.toLocaleString()}`);
+                await sleep(1000);
+                
+                addLine(`[?] Are you happy?`);
+                await sleep(1000);
+                
+                if (m >= 1037500) {
+                    addLine('[?] -> Yes.');
+                    await sleep(1000);
+                    
+                    addLine(`[!] Your age has reached ${a}!`)
+                    await sleep(1000);
+                    
+                    addLine('[#] ...');
+                    await sleep(1000);
+                    
+                    addLine('[!] You are dead.')
+                    await sleep(1000);
+                    
+                    addLine('[#] This is the end of your story.')
+                    addLine('');
+                    await sleep(1000);
+                    
+                    break;
+                }
+                
+                else {
+                    addLine(`[?] -> No.`);
+                    await sleep(1000);
+                
+                    if (a < 18) { 
+                        addLine(`[!] You're too young to work.`);
+                        await sleep(1000);
+                    
+                        addLine('[~] Waiting...');
+                        a += 1;
+                        await sleep(1000);
+                    }
+                    
+                    else {
+                        addLine('[~] Working...');
+                        await sleep(1000);
+                        
+                        addLine(`[!] You have received $12,500!`);
+                        m += 12500;
+                        a += 1;
+                        await sleep(1000);
+                    }
+                }
+                
+                addLine('');
+                await sleep(500);
+            }
         }
-        
-        h2 {
-            color: white;
-        }
-        
-        .subtitle {
-            font-size: 10px;
-            opacity: 0.3;
-        }
-        
-        .creator {
-            font-size: 10px;   
-            opacity: 0.3;
-        }
-    </style>
-    
-    <script src="script.js"></script>
+        document.addEventListener('DOMContentLoaded', runner);
+    </script>
 </body>
 </html>
