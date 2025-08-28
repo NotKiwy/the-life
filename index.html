@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Life</title>
+    <style>
+        #terminal {
+            background-color: #000;
+            color: white;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border-radius: 5px;
+            scrollbar-width: none;
+            -ms-overflow-style: none; 
+        }
+        
+        #terminal::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .terminal-line {
+            margin: 5px 0;
+            opacity: 0;
+            animation: fadeIn 0.3s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .cursor {
+            display: inline-block;
+            background-color: #0f0;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+  
+<body>
+    <div class="title">
+        <h2>[#] The Life.</h2>
+    </div>
+
+    <div id="terminal"></div>
+    
+    <div class="subtitle"> 
+        <h2>GitHub: github.com/notkiwy/the-life</h2>
+    </div>
+    
+    <div class="creator">
+        <h2>Community: t.me/skyc0de</h2>
+    </div>
+    
+    <style>
+        body {
+            background-color: black;
+            font-family: 'Courier New', monospace;
+        }
+        
+        h2 {
+            color: white;
+        }
+        
+        .subtitle {
+            font-size: 10px;
+            opacity: 0.3;
+        }
+        
+        .creator {
+            font-size: 10px;   
+            opacity: 0.3;
+        }
+    </style>
+    
+    <script src="script.js"></script>
+</body>
+</html>
